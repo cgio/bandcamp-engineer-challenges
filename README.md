@@ -196,4 +196,4 @@ else:
 
 The response contains a simple clue and a login URL. After logging in, a special contact email is displayed for responding to the Senior Fraud/Risk Engineer role. This information is intentionally omitted here.
 
-*All challenges are completed, except for getting the job, of course!*
+*All challenges completed.*
