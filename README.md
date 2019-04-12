@@ -11,7 +11,7 @@ Chrome DevTools shows the following cookie in the cookies area:
 Name: `fraud_job_url` 
 Value: `Over+here%3A+bandcamp.com%2Fectotherm%2Fsnakeoil_requests%3Fsnakeoil_param%3Dfrog`
 
-Although an online URL decoder will work, here is some simple Python:
+Although an online URL decoder will work, here is a simple Python example:
 
 ```python
 import urllib
@@ -44,9 +44,9 @@ Time to navigate to `http://bandcamp.com/gilamonster`.
 
 ## Challenge 3
 
-There was not much assurance Challenge 2 was solved successfully. However, the gilamonster user profile page appears to provide plenty of clues that we are viewing another challenge and not an ordinary user page. In fact, we can see the following code right at the top of the page: `it("dirty");`.
+There was not much assurance Challenge 2 was solved successfully. However, the gilamonster user profile page appears to provide plenty of clues that this is another challenge and not an ordinary user page. In fact, we can see the following code right at the top of the page: `it("dirty");`.
 
-Three images are displayed. Normally, these would be music samples. Instead, we see small text. Obtaining full-size image URLs is straightforward. For reference, the images are displayed as follows.
+Three images are displayed. Normally, these images would be album art. Instead, we see small text (which makes for unusual album art). Obtaining full-size image URLs is straightforward. For reference, the images are displayed as follows.
 
 **Image 1**
 URL: `https://f4.bcbits.com/img/a3232630976_16.jpg`
@@ -107,7 +107,7 @@ URL: `https://f4.bcbits.com/img/a2722538093_16.jpg`
 window.Launder("what_it()_returns");
 ```
 
-Two lines of text appear below each image. Reading from left to right, a sentence forms: `Think It() Through Then Call Launder()` This is a clue that indicates we need to analyze the information and then call Launder(). 
+Two lines of text appear below each image. Reading from left to right, a sentence forms: `Think It() Through Then Call Launder()` This is a clue that indicates we need to analyze the information and then call Launder(). If needed, we can later look at the page source to learn about Launder().
 
 The code in the images appears to be JavaScript pseudocode. `it()` builds and returns a string called `the_answer`. However, `it()` itself is not very useful. `lookup[]` appears to be an array to be used for decoding. `z()` in Image 2 accesses `lookup[]`. By studying Image 2's code, we can see that for a given character, an integer is recursively incremented until lookup occurs in `lookup[].` Recall the clue that appears at the top of the page: `it("dirty");`. The code implies a new string is built character by character. Considering this, we can try to mentally run "dirty" through the translation code, starting with "d":
 
@@ -123,7 +123,7 @@ lookup[6] =  'e'  // 't'
 lookup[1] =  'y'  // 'y'
 ```
 
-See the pattern? The word "dirty" produces "money". Given the clues, guessing may have been faster. For example, most English speakers have heard the expressions "dirty money" and "launder money." 
+See a pattern? The word "dirty" produces "money". Given the clues, guessing may have been faster. For example, many English speakers have heard the expressions "dirty money" and "launder money." 
 
 To complete the challenge, `Launder('money');` in the DevTools console produces an alert containing: `https://bandcamp.com/ectotherm/snakeoil_crumbs`.
 
@@ -147,8 +147,8 @@ We can see this is a POST request that needs sending. "Collect your crumbs" is a
 
 Missing POST data to solve:
 * `?????` in User-Agent = **Gecko** (refer to the user-agent string in the Challenge 2's qualifying row and notice the missing five characters match the length of Gecko)
-* `snakeoil_param` value = **frog** (refer to Challenge 1)
-* `snakeoil_user` value = originally, I had thought the value may have been **gilamonster** or **ectotherm** (refer to Challenge 2). Bandcamp user pages are structured as `https://bandcamp.com/username`. However, we have already been introduced to the special user page `http://bandcamp.com/gilamonster` and **gilamonster** matches the 11 missing characters.
+* `snakeoil_param=????` value = **frog** (refer to Challenge 1)
+* `snakeoil_user=???????????` value =  **gilamonster**. Originally, I considered the value may have been **ectotherm** (refer to Challenge 2). Bandcamp user pages are structured as `https://bandcamp.com/username`. However, **gilamonster** matches the 11 missing characters and we have already been introduced to the special user page `http://bandcamp.com/gilamonster`.
 
 Putting the POST request together:
 
@@ -162,7 +162,7 @@ Content-Length: 45
 snakeoil_param=frog&snakeoil_user=gilamonster
 ```
 
-We can send a POST request programmatically or using a tool such as Fiddler, Postman, etc.
+We can now send a POST request programmatically or use a tool such as Fiddler, Postman, etc.
 
 Here is a Python example:
 
