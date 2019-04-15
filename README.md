@@ -1,4 +1,4 @@
-# Bandcamp Security Challenge (Senior Fraud/Risk Engineer)
+# Senior Fraud/Risk Engineer Security Challenges
 
 ## Challenge 1
 
